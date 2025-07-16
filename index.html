@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actividad: Aplica el Método Científico</title>
+    <title>Actividad: Aplica el MÃ©todo CientÃ­fico</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome for icons -->
@@ -35,7 +35,7 @@
         .section-title {
             font-size: 2.5rem;
             font-weight: bold;
-            color: #3f2b96; /* Color oscuro para títulos */
+            color: #3f2b96; /* Color oscuro para tÃ­tulos */
             margin-bottom: 20px;
         }
         .step-content {
@@ -76,7 +76,7 @@
             border: none;
         }
         .option-button:hover {
-            background-color: #8c30e0; /* Morado más claro al pasar el ratón */
+            background-color: #8c30e0; /* Morado mÃ¡s claro al pasar el ratÃ³n */
             transform: translateY(-2px);
         }
         .option-button:active {
@@ -99,7 +99,7 @@
             border-color: #f5c6cb;
         }
         .action-button {
-            background-color: #2575fc; /* Azul brillante para botones de acción */
+            background-color: #2575fc; /* Azul brillante para botones de acciÃ³n */
             color: white;
             padding: 15px 30px;
             border-radius: 12px;
@@ -111,7 +111,7 @@
             border: none;
         }
         .action-button:hover {
-            background-color: #0056b3; /* Azul más oscuro al pasar el ratón */
+            background-color: #0056b3; /* Azul mÃ¡s oscuro al pasar el ratÃ³n */
             transform: translateY(-3px);
         }
         .action-button:active {
@@ -203,7 +203,7 @@
             try {
                 if (Object.keys(firebaseConfig).length === 0) {
                     console.error("Firebase config is missing. Cannot initialize Firebase.");
-                    document.getElementById('globalMessage').textContent = "Error: Configuración de Firebase no disponible. No se pueden guardar/cargar resultados.";
+                    document.getElementById('globalMessage').textContent = "Error: ConfiguraciÃ³n de Firebase no disponible. No se pueden guardar/cargar resultados.";
                     document.getElementById('globalMessage').classList.remove('hidden');
                     return;
                 }
@@ -232,7 +232,7 @@
                             }
                         } catch (error) {
                             console.error("Error signing in:", error);
-                            document.getElementById('globalMessage').textContent = `Error de autenticación: ${error.message}`;
+                            document.getElementById('globalMessage').textContent = `Error de autenticaciÃ³n: ${error.message}`;
                             document.getElementById('globalMessage').classList.remove('hidden');
                         }
                     }
@@ -248,7 +248,7 @@
         window.saveResult = async (question, hypothesis, experiment, simulatedResult, conclusion) => {
             if (!isAuthReady || !db || !userId || !appId) {
                 console.error("Firebase not ready or user not authenticated. Cannot save result.");
-                showMessage('globalMessage', 'Error: No se pudo guardar el resultado. Inténtalo de nuevo.', true);
+                showMessage('globalMessage', 'Error: No se pudo guardar el resultado. IntÃ©ntalo de nuevo.', true);
                 return;
             }
 
@@ -265,7 +265,7 @@
                     timestamp: serverTimestamp() // Add a server timestamp
                 });
                 console.log("Result saved successfully!");
-                showMessage('globalMessage', '¡Tu resultado ha sido guardado con éxito!', false);
+                showMessage('globalMessage', 'Â¡Tu resultado ha sido guardado con Ã©xito!', false);
             } catch (e) {
                 console.error("Error saving result:", e);
                 showMessage('globalMessage', `Error al guardar el resultado: ${e.message}`, true);
@@ -289,7 +289,7 @@
             onSnapshot(q, (snapshot) => {
                 resultsList.innerHTML = ''; // Clear previous results
                 if (snapshot.empty) {
-                    resultsList.innerHTML = '<li class="text-center text-gray-500">Aún no hay resultados. ¡Sé el primero!</li>';
+                    resultsList.innerHTML = '<li class="text-center text-gray-500">AÃºn no hay resultados. Â¡SÃ© el primero!</li>';
                     return;
                 }
                 snapshot.forEach((doc) => {
@@ -298,10 +298,10 @@
                     listItem.innerHTML = `
                         <p><strong>Usuario ID:</strong> ${data.userId}</p>
                         <p><strong>Pregunta:</strong> ${data.question}</p>
-                        <p><strong>Hipótesis:</strong> ${data.hypothesis}</p>
+                        <p><strong>HipÃ³tesis:</strong> ${data.hypothesis}</p>
                         <p><strong>Experimento:</strong> ${data.experiment}</p>
                         <p><strong>Resultado:</strong> ${data.simulatedResult}</p>
-                        <p><strong>Conclusión:</strong> ${data.conclusion}</p>
+                        <p><strong>ConclusiÃ³n:</strong> ${data.conclusion}</p>
                         <p class="text-xs text-gray-500 mt-2">Enviado: ${data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'N/A'}</p>
                     `;
                     resultsList.appendChild(listItem);
@@ -318,9 +318,9 @@
 </head>
 <body>
     <div class="activity-container">
-        <h1 class="section-title">¡Aplica el Método Científico!</h1>
+        <h1 class="section-title">Â¡Aplica el MÃ©todo CientÃ­fico!</h1>
         <p class="text-lg text-gray-700 mb-6">
-            Sigue los pasos para resolver un misterio científico.
+            Sigue los pasos para resolver un misterio cientÃ­fico.
         </p>
 
         <!-- Display User ID -->
@@ -329,60 +329,60 @@
         <!-- Contenido de la actividad por pasos -->
         <div id="step-intro" class="step-content">
             <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                <i class="fas fa-play-circle text-purple-600"></i> ¡Comencemos!
+                <i class="fas fa-play-circle text-purple-600"></i> Â¡Comencemos!
             </h2>
-            <p class="text-gray-700">Imagina que tienes una planta de tomate en tu jardín que estaba creciendo muy bien, pero de repente, sus hojas se están volviendo amarillas y se ve débil. ¡Necesita tu ayuda!</p>
+            <p class="text-gray-700">Imagina que tienes una planta de tomate en tu jardÃ­n que estaba creciendo muy bien, pero de repente, sus hojas se estÃ¡n volviendo amarillas y se ve dÃ©bil. Â¡Necesita tu ayuda!</p>
             <button id="startButton" class="action-button">
-                <i class="fas fa-rocket mr-2"></i> Empezar la Investigación
+                <i class="fas fa-rocket mr-2"></i> Empezar la InvestigaciÃ³n
             </button>
         </div>
 
         <div id="step-observation" class="step-content hidden">
             <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                <i class="fas fa-search text-blue-600"></i> Paso 1: Observación y Pregunta
+                <i class="fas fa-search text-blue-600"></i> Paso 1: ObservaciÃ³n y Pregunta
             </h2>
             <p class="text-gray-700 mb-4">
-                Has observado que las hojas de tu planta de tomate están amarillas y se ve débil. Ahora, formula una pregunta que te ayude a entender por qué está sucediendo esto.
+                Has observado que las hojas de tu planta de tomate estÃ¡n amarillas y se ve dÃ©bil. Ahora, formula una pregunta que te ayude a entender por quÃ© estÃ¡ sucediendo esto.
             </p>
-            <label for="questionInput" class="block text-gray-700 font-bold mb-2">Tu Pregunta de Investigación:</label>
-            <input type="text" id="questionInput" class="input-field" placeholder="Ej: ¿Por qué las hojas de mi planta se están volviendo amarillas?">
+            <label for="questionInput" class="block text-gray-700 font-bold mb-2">Tu Pregunta de InvestigaciÃ³n:</label>
+            <input type="text" id="questionInput" class="input-field" placeholder="Ej: Â¿Por quÃ© las hojas de mi planta se estÃ¡n volviendo amarillas?">
             <button id="nextToHypothesisButton" class="action-button">
-                <i class="fas fa-arrow-right mr-2"></i> Siguiente: Hipótesis
+                <i class="fas fa-arrow-right mr-2"></i> Siguiente: HipÃ³tesis
             </button>
             <div id="questionMessage" class="message-box hidden"></div>
         </div>
 
         <div id="step-hypothesis" class="step-content hidden">
             <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                <i class="fas fa-lightbulb text-yellow-500"></i> Paso 2: Hipótesis
+                <i class="fas fa-lightbulb text-yellow-500"></i> Paso 2: HipÃ³tesis
             </h2>
             <p class="text-gray-700 mb-4">
-                Basado en tu pregunta y lo que sabes sobre las plantas, ¿cuál crees que es la causa más probable del problema? Propón una hipótesis (una suposición comprobable).
+                Basado en tu pregunta y lo que sabes sobre las plantas, Â¿cuÃ¡l crees que es la causa mÃ¡s probable del problema? PropÃ³n una hipÃ³tesis (una suposiciÃ³n comprobable).
             </p>
-            <label for="hypothesisInput" class="block text-gray-700 font-bold mb-2">Tu Hipótesis:</label>
-            <input type="text" id="hypothesisInput" class="input-field" placeholder="Ej: Creo que la planta no está recibiendo suficiente agua.">
+            <label for="hypothesisInput" class="block text-gray-700 font-bold mb-2">Tu HipÃ³tesis:</label>
+            <input type="text" id="hypothesisInput" class="input-field" placeholder="Ej: Creo que la planta no estÃ¡ recibiendo suficiente agua.">
             <button id="nextToExperimentButton" class="action-button">
-                <i class="fas fa-arrow-right mr-2"></i> Siguiente: Experimentación
+                <i class="fas fa-arrow-right mr-2"></i> Siguiente: ExperimentaciÃ³n
             </button>
             <div id="hypothesisMessage" class="message-box hidden"></div>
         </div>
 
         <div id="step-experiment" class="step-content hidden">
             <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                <i class="fas fa-flask text-green-600"></i> Paso 3: Experimentación
+                <i class="fas fa-flask text-green-600"></i> Paso 3: ExperimentaciÃ³n
             </h2>
             <p class="text-gray-700 mb-4">
-                Para probar tu hipótesis, ¿qué experimento te gustaría realizar? Elige una opción:
+                Para probar tu hipÃ³tesis, Â¿quÃ© experimento te gustarÃ­a realizar? Elige una opciÃ³n:
             </p>
             <div class="flex flex-wrap justify-center gap-4">
                 <button class="option-button" data-experiment="agua">
                     <i class="fas fa-tint"></i> Aumentar la cantidad de agua
                 </button>
                 <button class="option-button" data-experiment="sol">
-                    <i class="fas fa-sun"></i> Mover la planta a un lugar con más sol
+                    <i class="fas fa-sun"></i> Mover la planta a un lugar con mÃ¡s sol
                 </button>
                 <button class="option-button" data-experiment="nutrientes">
-                    <i class="fas fa-seedling"></i> Añadir nutrientes al suelo
+                    <i class="fas fa-seedling"></i> AÃ±adir nutrientes al suelo
                 </button>
             </div>
             <div id="experimentMessage" class="message-box hidden"></div>
@@ -390,26 +390,26 @@
 
         <div id="step-results" class="step-content hidden">
             <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                <i class="fas fa-chart-line text-red-600"></i> Paso 4: Análisis de Datos (Resultados Simulados)
+                <i class="fas fa-chart-line text-red-600"></i> Paso 4: AnÃ¡lisis de Datos (Resultados Simulados)
             </h2>
             <p class="text-gray-700 mb-4">
-                ¡Has realizado tu experimento! Aquí están los resultados simulados:
+                Â¡Has realizado tu experimento! AquÃ­ estÃ¡n los resultados simulados:
             </p>
             <div id="simulatedResult" class="result-box"></div>
             <button id="nextToConclusionButton" class="action-button">
-                <i class="fas fa-arrow-right mr-2"></i> Siguiente: Conclusión
+                <i class="fas fa-arrow-right mr-2"></i> Siguiente: ConclusiÃ³n
             </button>
         </div>
 
         <div id="step-conclusion" class="step-content hidden">
             <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                <i class="fas fa-check-circle text-purple-600"></i> Paso 5: Conclusión
+                <i class="fas fa-check-circle text-purple-600"></i> Paso 5: ConclusiÃ³n
             </h2>
             <p class="text-gray-700 mb-4">
-                Basado en los resultados de tu experimento, ¿qué conclusión puedes sacar? ¿Tu hipótesis fue apoyada o refutada?
+                Basado en los resultados de tu experimento, Â¿quÃ© conclusiÃ³n puedes sacar? Â¿Tu hipÃ³tesis fue apoyada o refutada?
             </p>
-            <label for="conclusionInput" class="block text-gray-700 font-bold mb-2">Tu Conclusión:</label>
-            <textarea id="conclusionInput" class="input-field h-32 resize-none" placeholder="Ej: Mi hipótesis era correcta, la planta necesitaba más agua porque las hojas amarillas desaparecieron."></textarea>
+            <label for="conclusionInput" class="block text-gray-700 font-bold mb-2">Tu ConclusiÃ³n:</label>
+            <textarea id="conclusionInput" class="input-field h-32 resize-none" placeholder="Ej: Mi hipÃ³tesis era correcta, la planta necesitaba mÃ¡s agua porque las hojas amarillas desaparecieron."></textarea>
             <button id="finishButton" class="action-button">
                 <i class="fas fa-flag-checkered mr-2"></i> Finalizar Actividad y Guardar
             </button>
@@ -418,10 +418,10 @@
 
         <div id="step-end" class="step-content hidden">
             <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                <i class="fas fa-award text-orange-500"></i> ¡Actividad Completada!
+                <i class="fas fa-award text-orange-500"></i> Â¡Actividad Completada!
             </h2>
             <p class="text-gray-700 mb-4">
-                ¡Felicidades! Has aplicado los pasos del método científico para resolver un problema. Recuerda que la ciencia es un ciclo continuo de observación, preguntas y descubrimientos.
+                Â¡Felicidades! Has aplicado los pasos del mÃ©todo cientÃ­fico para resolver un problema. Recuerda que la ciencia es un ciclo continuo de observaciÃ³n, preguntas y descubrimientos.
             </p>
             <div class="flex flex-col md:flex-row justify-center gap-4">
                 <button id="restartButton" class="action-button">
@@ -433,30 +433,30 @@
             </div>
         </div>
 
-        <!-- Sección para ver los resultados de todos -->
+        <!-- SecciÃ³n para ver los resultados de todos -->
         <div id="step-view-results" class="step-content hidden">
             <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
                 <i class="fas fa-users text-indigo-600"></i> Resultados de la Clase
             </h2>
             <p class="text-gray-700 mb-4">
-                Aquí puedes ver cómo otros estudiantes aplicaron el método científico:
+                AquÃ­ puedes ver cÃ³mo otros estudiantes aplicaron el mÃ©todo cientÃ­fico:
             </p>
             <ul id="resultsList" class="results-list">
-                <!-- Los resultados se cargarán aquí -->
+                <!-- Los resultados se cargarÃ¡n aquÃ­ -->
             </ul>
             <button id="backToMenuButton" class="action-button bg-gray-500 hover:bg-gray-700">
                 <i class="fas fa-arrow-left mr-2"></i> Volver
             </button>
         </div>
 
-        <!-- Mensaje global para errores o información -->
+        <!-- Mensaje global para errores o informaciÃ³n -->
         <div id="globalMessage" class="message-box hidden"></div>
 
     </div>
 
     <script type="module">
         // Importaciones de Firebase (ya definidas en el script de arriba)
-        // No es necesario re-importar aquí si ya están en un script type="module" global.
+        // No es necesario re-importar aquÃ­ si ya estÃ¡n en un script type="module" global.
 
         // Referencias a los elementos HTML
         const steps = ['intro', 'observation', 'hypothesis', 'experiment', 'results', 'conclusion', 'end', 'view-results'];
@@ -491,7 +491,7 @@
             }, 3000);
         };
 
-        // Navegación entre pasos
+        // NavegaciÃ³n entre pasos
         getElement('startButton').addEventListener('click', () => {
             currentStepIndex = 1;
             showStep(steps[currentStepIndex]);
@@ -500,7 +500,7 @@
         getElement('nextToHypothesisButton').addEventListener('click', () => {
             currentQuestion = getElement('questionInput').value.trim();
             if (currentQuestion.length < 10) {
-                showMessage('questionMessage', 'Por favor, escribe una pregunta más detallada (mínimo 10 caracteres).', true);
+                showMessage('questionMessage', 'Por favor, escribe una pregunta mÃ¡s detallada (mÃ­nimo 10 caracteres).', true);
                 return;
             }
             currentStepIndex = 2;
@@ -510,48 +510,48 @@
         getElement('nextToExperimentButton').addEventListener('click', () => {
             currentHypothesis = getElement('hypothesisInput').value.trim();
             if (currentHypothesis.length < 10) {
-                showMessage('hypothesisMessage', 'Por favor, escribe una hipótesis más detallada (mínimo 10 caracteres).', true);
+                showMessage('hypothesisMessage', 'Por favor, escribe una hipÃ³tesis mÃ¡s detallada (mÃ­nimo 10 caracteres).', true);
                 return;
             }
             currentStepIndex = 3;
             showStep(steps[currentStepIndex]);
         });
 
-        // Manejo de la selección de experimento
+        // Manejo de la selecciÃ³n de experimento
         document.querySelectorAll('.option-button').forEach(button => {
             button.addEventListener('click', (event) => {
                 selectedExperiment = event.target.dataset.experiment;
                 let resultText = '';
                 let isErrorResult = false;
 
-                // Lógica de resultados simulados basada en el experimento elegido
+                // LÃ³gica de resultados simulados basada en el experimento elegido
                 switch (selectedExperiment) {
                     case 'agua':
                         if (currentHypothesis.toLowerCase().includes('agua')) {
-                            resultText = '¡Excelente! Después de aumentar el riego, las hojas de tu planta se volvieron verdes y la planta recuperó su vigor. ¡Tu hipótesis fue apoyada!';
+                            resultText = 'Â¡Excelente! DespuÃ©s de aumentar el riego, las hojas de tu planta se volvieron verdes y la planta recuperÃ³ su vigor. Â¡Tu hipÃ³tesis fue apoyada!';
                         } else {
-                            resultText = 'Después de aumentar el riego, las hojas de la planta no mejoraron, e incluso algunas se pusieron más amarillas. Parece que el agua no era el problema principal.';
+                            resultText = 'DespuÃ©s de aumentar el riego, las hojas de la planta no mejoraron, e incluso algunas se pusieron mÃ¡s amarillas. Parece que el agua no era el problema principal.';
                             isErrorResult = true;
                         }
                         break;
                     case 'sol':
                         if (currentHypothesis.toLowerCase().includes('sol') || currentHypothesis.toLowerCase().includes('luz')) {
-                            resultText = '¡Increíble! Al mover la planta a un lugar con más sol, las hojas amarillas desaparecieron y la planta empezó a crecer con fuerza. ¡Tu hipótesis fue apoyada!';
+                            resultText = 'Â¡IncreÃ­ble! Al mover la planta a un lugar con mÃ¡s sol, las hojas amarillas desaparecieron y la planta empezÃ³ a crecer con fuerza. Â¡Tu hipÃ³tesis fue apoyada!';
                         } else {
-                            resultText = 'Después de mover la planta a un lugar con más sol, no hubo cambios significativos, o incluso las hojas se quemaron un poco. El sol no parece ser la causa.';
+                            resultText = 'DespuÃ©s de mover la planta a un lugar con mÃ¡s sol, no hubo cambios significativos, o incluso las hojas se quemaron un poco. El sol no parece ser la causa.';
                             isErrorResult = true;
                         }
                         break;
                     case 'nutrientes':
                         if (currentHypothesis.toLowerCase().includes('nutrientes') || currentHypothesis.toLowerCase().includes('suelo')) {
-                            resultText = '¡Lo lograste! Al añadir nutrientes al suelo, la planta se recuperó rápidamente, sus hojas se pusieron verdes y creció vigorosamente. ¡Tu hipótesis fue apoyada!';
+                            resultText = 'Â¡Lo lograste! Al aÃ±adir nutrientes al suelo, la planta se recuperÃ³ rÃ¡pidamente, sus hojas se pusieron verdes y creciÃ³ vigorosamente. Â¡Tu hipÃ³tesis fue apoyada!';
                         } else {
-                            resultText = 'Después de añadir nutrientes, la planta no mostró mejoría, o incluso empeoró. Los nutrientes no eran el factor clave.';
+                            resultText = 'DespuÃ©s de aÃ±adir nutrientes, la planta no mostrÃ³ mejorÃ­a, o incluso empeorÃ³. Los nutrientes no eran el factor clave.';
                             isErrorResult = true;
                         }
                         break;
                     default:
-                        resultText = 'No se pudo simular el resultado. Por favor, elige una opción.';
+                        resultText = 'No se pudo simular el resultado. Por favor, elige una opciÃ³n.';
                         isErrorResult = true;
                 }
 
@@ -577,7 +577,7 @@
         getElement('finishButton').addEventListener('click', async () => {
             currentConclusion = getElement('conclusionInput').value.trim();
             if (currentConclusion.length < 20) {
-                showMessage('conclusionMessage', 'Por favor, escribe una conclusión más completa (mínimo 20 caracteres).', true);
+                showMessage('conclusionMessage', 'Por favor, escribe una conclusiÃ³n mÃ¡s completa (mÃ­nimo 20 caracteres).', true);
                 return;
             }
 
