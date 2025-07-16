@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad: Aplica el Método Científico</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estilos personalizados para la actividad */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #a8c0ff 0%, #3f2b96 100%); /* Degradado de fondo suave */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .activity-container {
+            background-color: rgba(255, 255, 255, 0.98); /* Fondo blanco casi opaco */
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+            max-width: 900px;
+            width: 100%;
+            padding: 40px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #3f2b96; /* Color oscuro para títulos */
+            margin-bottom: 20px;
+        }
+        .step-content {
+            background-color: #e0f2fe; /* Azul claro para el contenido del paso */
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+            text-align: left;
+        }
+        .input-field {
+            width: 100%;
+            padding: 12px 15px;
+            margin-top: 10px;
+            border: 2px solid #a8c0ff; /* Borde azul claro */
+            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        .input-field:focus {
+            border-color: #3f2b96; /* Borde oscuro al enfocar */
+        }
+        .option-button {
+            background-color: #6a11cb; /* Morado vibrante */
+            color: white;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 10px;
+            border: none;
+        }
+        .option-button:hover {
+            background-color: #8c30e0; /* Morado más claro al pasar el ratón */
+            transform: translateY(-2px);
+        }
+        .option-button:active {
+            transform: translateY(0);
+        }
+        .result-box {
+            background-color: #d4edda; /* Verde claro para resultados positivos */
+            color: #155724; /* Verde oscuro para texto */
+            border: 1px solid #c3e6cb;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            display: none; /* Oculto por defecto */
+        }
+        .result-box.error {
+            background-color: #f8d7da; /* Rojo claro para resultados negativos */
+            color: #721c24;
+            border-color: #f5c6cb;
+        }
+        .action-button {
+            background-color: #2575fc; /* Azul brillante para botones de acción */
+            color: white;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 25px;
+            border: none;
+        }
+        .action-button:hover {
+            background-color: #0056b3; /* Azul más oscuro al pasar el ratón */
+            transform: translateY(-3px);
+        }
+        .action-button:active {
+            transform: translateY(0);
+        }
+        .message-box {
+            background-color: #fff3cd; /* Amarillo claro para mensajes */
+            color: #856404;
+            border: 1px solid #ffeeba;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 1rem;
+            display: none; /* Oculto por defecto */
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hidden {
+            display: none;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #3f2b96;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .results-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            max-height: 400px; /* Limitar altura para scroll */
+            overflow-y: auto; /* Habilitar scroll vertical */
+            border: 1px solid #a8c0ff;
+            border-radius: 10px;
+            background-color: #f9fcff;
+        }
+        .results-list li {
+            background-color: #e0f2fe;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: left;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .results-list li:last-child {
+            margin-bottom: 0;
+        }
+        .results-list li strong {
+            color: #3f2b96;
+        }
+        .user-id-display {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 10px;
+            word-break: break-all; /* Para IDs largos */
+        }
+    </style>
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, addDoc, collection, onSnapshot, query, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global variables for Firebase config and app ID
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let app;
+        let db;
+        let auth;
+        let userId = 'cargando...'; // Default state until auth is ready
+        let isAuthReady = false;
+
+        // Initialize Firebase and set up authentication
+        window.initFirebase = async () => {
+            try {
+                if (Object.keys(firebaseConfig).length === 0) {
+                    console.error("Firebase config is missing. Cannot initialize Firebase.");
+                    document.getElementById('globalMessage').textContent = "Error: Configuración de Firebase no disponible. No se pueden guardar/cargar resultados.";
+                    document.getElementById('globalMessage').classList.remove('hidden');
+                    return;
+                }
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                // Listen for auth state changes
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        document.getElementById('userIdDisplay').textContent = `Tu ID de Usuario: ${userId}`;
+                        isAuthReady = true;
+                        console.log("Firebase Auth Ready. User ID:", userId);
+                        // Fetch results once authenticated
+                        window.fetchResults();
+                    } else {
+                        // Sign in anonymously if no user is logged in
+                        try {
+                            if (initialAuthToken) {
+                                await signInWithCustomToken(auth, initialAuthToken);
+                                console.log("Signed in with custom token.");
+                            } else {
+                                await signInAnonymously(auth);
+                                console.log("Signed in anonymously.");
+                            }
+                        } catch (error) {
+                            console.error("Error signing in:", error);
+                            document.getElementById('globalMessage').textContent = `Error de autenticación: ${error.message}`;
+                            document.getElementById('globalMessage').classList.remove('hidden');
+                        }
+                    }
+                });
+            } catch (e) {
+                console.error("Error initializing Firebase:", e);
+                document.getElementById('globalMessage').textContent = `Error al inicializar Firebase: ${e.message}`;
+                document.getElementById('globalMessage').classList.remove('hidden');
+            }
+        };
+
+        // Function to save results to Firestore
+        window.saveResult = async (question, hypothesis, experiment, simulatedResult, conclusion) => {
+            if (!isAuthReady || !db || !userId || !appId) {
+                console.error("Firebase not ready or user not authenticated. Cannot save result.");
+                showMessage('globalMessage', 'Error: No se pudo guardar el resultado. Inténtalo de nuevo.', true);
+                return;
+            }
+
+            try {
+                // Public data path: /artifacts/{appId}/public/data/scientific_method_results
+                const resultsCollectionRef = collection(db, `artifacts/${appId}/public/data/scientific_method_results`);
+                await addDoc(resultsCollectionRef, {
+                    userId: userId,
+                    question: question,
+                    hypothesis: hypothesis,
+                    experiment: experiment,
+                    simulatedResult: simulatedResult,
+                    conclusion: conclusion,
+                    timestamp: serverTimestamp() // Add a server timestamp
+                });
+                console.log("Result saved successfully!");
+                showMessage('globalMessage', '¡Tu resultado ha sido guardado con éxito!', false);
+            } catch (e) {
+                console.error("Error saving result:", e);
+                showMessage('globalMessage', `Error al guardar el resultado: ${e.message}`, true);
+            }
+        };
+
+        // Function to fetch and display results from Firestore
+        window.fetchResults = () => {
+            if (!isAuthReady || !db || !appId) {
+                console.error("Firebase not ready. Cannot fetch results.");
+                return;
+            }
+
+            const resultsList = document.getElementById('resultsList');
+            resultsList.innerHTML = '<li class="text-center text-gray-500">Cargando resultados... <span class="loading-spinner"></span></li>';
+
+            // Public data path: /artifacts/{appId}/public/data/scientific_method_results
+            const resultsCollectionRef = collection(db, `artifacts/${appId}/public/data/scientific_method_results`);
+            const q = query(resultsCollectionRef); // No orderBy to avoid index issues
+
+            onSnapshot(q, (snapshot) => {
+                resultsList.innerHTML = ''; // Clear previous results
+                if (snapshot.empty) {
+                    resultsList.innerHTML = '<li class="text-center text-gray-500">Aún no hay resultados. ¡Sé el primero!</li>';
+                    return;
+                }
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        <p><strong>Usuario ID:</strong> ${data.userId}</p>
+                        <p><strong>Pregunta:</strong> ${data.question}</p>
+                        <p><strong>Hipótesis:</strong> ${data.hypothesis}</p>
+                        <p><strong>Experimento:</strong> ${data.experiment}</p>
+                        <p><strong>Resultado:</strong> ${data.simulatedResult}</p>
+                        <p><strong>Conclusión:</strong> ${data.conclusion}</p>
+                        <p class="text-xs text-gray-500 mt-2">Enviado: ${data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'N/A'}</p>
+                    `;
+                    resultsList.appendChild(listItem);
+                });
+            }, (error) => {
+                console.error("Error fetching results:", error);
+                resultsList.innerHTML = `<li class="text-center text-red-500">Error al cargar resultados: ${error.message}</li>`;
+            });
+        };
+
+        // Initialize Firebase when the window loads
+        window.onload = window.initFirebase;
+    </script>
+</head>
+<body>
+    <div class="activity-container">
+        <h1 class="section-title">¡Aplica el Método Científico!</h1>
+        <p class="text-lg text-gray-700 mb-6">
+            Sigue los pasos para resolver un misterio científico.
+        </p>
+
+        <!-- Display User ID -->
+        <p id="userIdDisplay" class="user-id-display text-gray-500">Cargando ID de Usuario...</p>
+
+        <!-- Contenido de la actividad por pasos -->
+        <div id="step-intro" class="step-content">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                <i class="fas fa-play-circle text-purple-600"></i> ¡Comencemos!
+            </h2>
+            <p class="text-gray-700">Imagina que tienes una planta de tomate en tu jardín que estaba creciendo muy bien, pero de repente, sus hojas se están volviendo amarillas y se ve débil. ¡Necesita tu ayuda!</p>
+            <button id="startButton" class="action-button">
+                <i class="fas fa-rocket mr-2"></i> Empezar la Investigación
+            </button>
+        </div>
+
+        <div id="step-observation" class="step-content hidden">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                <i class="fas fa-search text-blue-600"></i> Paso 1: Observación y Pregunta
+            </h2>
+            <p class="text-gray-700 mb-4">
+                Has observado que las hojas de tu planta de tomate están amarillas y se ve débil. Ahora, formula una pregunta que te ayude a entender por qué está sucediendo esto.
+            </p>
+            <label for="questionInput" class="block text-gray-700 font-bold mb-2">Tu Pregunta de Investigación:</label>
+            <input type="text" id="questionInput" class="input-field" placeholder="Ej: ¿Por qué las hojas de mi planta se están volviendo amarillas?">
+            <button id="nextToHypothesisButton" class="action-button">
+                <i class="fas fa-arrow-right mr-2"></i> Siguiente: Hipótesis
+            </button>
+            <div id="questionMessage" class="message-box hidden"></div>
+        </div>
+
+        <div id="step-hypothesis" class="step-content hidden">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                <i class="fas fa-lightbulb text-yellow-500"></i> Paso 2: Hipótesis
+            </h2>
+            <p class="text-gray-700 mb-4">
+                Basado en tu pregunta y lo que sabes sobre las plantas, ¿cuál crees que es la causa más probable del problema? Propón una hipótesis (una suposición comprobable).
+            </p>
+            <label for="hypothesisInput" class="block text-gray-700 font-bold mb-2">Tu Hipótesis:</label>
+            <input type="text" id="hypothesisInput" class="input-field" placeholder="Ej: Creo que la planta no está recibiendo suficiente agua.">
+            <button id="nextToExperimentButton" class="action-button">
+                <i class="fas fa-arrow-right mr-2"></i> Siguiente: Experimentación
+            </button>
+            <div id="hypothesisMessage" class="message-box hidden"></div>
+        </div>
+
+        <div id="step-experiment" class="step-content hidden">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                <i class="fas fa-flask text-green-600"></i> Paso 3: Experimentación
+            </h2>
+            <p class="text-gray-700 mb-4">
+                Para probar tu hipótesis, ¿qué experimento te gustaría realizar? Elige una opción:
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <button class="option-button" data-experiment="agua">
+                    <i class="fas fa-tint"></i> Aumentar la cantidad de agua
+                </button>
+                <button class="option-button" data-experiment="sol">
+                    <i class="fas fa-sun"></i> Mover la planta a un lugar con más sol
+                </button>
+                <button class="option-button" data-experiment="nutrientes">
+                    <i class="fas fa-seedling"></i> Añadir nutrientes al suelo
+                </button>
+            </div>
+            <div id="experimentMessage" class="message-box hidden"></div>
+        </div>
+
+        <div id="step-results" class="step-content hidden">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                <i class="fas fa-chart-line text-red-600"></i> Paso 4: Análisis de Datos (Resultados Simulados)
+            </h2>
+            <p class="text-gray-700 mb-4">
+                ¡Has realizado tu experimento! Aquí están los resultados simulados:
+            </p>
+            <div id="simulatedResult" class="result-box"></div>
+            <button id="nextToConclusionButton" class="action-button">
+                <i class="fas fa-arrow-right mr-2"></i> Siguiente: Conclusión
+            </button>
+        </div>
+
+        <div id="step-conclusion" class="step-content hidden">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                <i class="fas fa-check-circle text-purple-600"></i> Paso 5: Conclusión
+            </h2>
+            <p class="text-gray-700 mb-4">
+                Basado en los resultados de tu experimento, ¿qué conclusión puedes sacar? ¿Tu hipótesis fue apoyada o refutada?
+            </p>
+            <label for="conclusionInput" class="block text-gray-700 font-bold mb-2">Tu Conclusión:</label>
+            <textarea id="conclusionInput" class="input-field h-32 resize-none" placeholder="Ej: Mi hipótesis era correcta, la planta necesitaba más agua porque las hojas amarillas desaparecieron."></textarea>
+            <button id="finishButton" class="action-button">
+                <i class="fas fa-flag-checkered mr-2"></i> Finalizar Actividad y Guardar
+            </button>
+            <div id="conclusionMessage" class="message-box hidden"></div>
+        </div>
+
+        <div id="step-end" class="step-content hidden">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                <i class="fas fa-award text-orange-500"></i> ¡Actividad Completada!
+            </h2>
+            <p class="text-gray-700 mb-4">
+                ¡Felicidades! Has aplicado los pasos del método científico para resolver un problema. Recuerda que la ciencia es un ciclo continuo de observación, preguntas y descubrimientos.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <button id="restartButton" class="action-button">
+                    <i class="fas fa-sync-alt mr-2"></i> Reiniciar Actividad
+                </button>
+                <button id="viewResultsButton" class="action-button bg-purple-600 hover:bg-purple-800">
+                    <i class="fas fa-list-alt mr-2"></i> Ver Resultados de Todos
+                </button>
+            </div>
+        </div>
+
+        <!-- Sección para ver los resultados de todos -->
+        <div id="step-view-results" class="step-content hidden">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                <i class="fas fa-users text-indigo-600"></i> Resultados de la Clase
+            </h2>
+            <p class="text-gray-700 mb-4">
+                Aquí puedes ver cómo otros estudiantes aplicaron el método científico:
+            </p>
+            <ul id="resultsList" class="results-list">
+                <!-- Los resultados se cargarán aquí -->
+            </ul>
+            <button id="backToMenuButton" class="action-button bg-gray-500 hover:bg-gray-700">
+                <i class="fas fa-arrow-left mr-2"></i> Volver
+            </button>
+        </div>
+
+        <!-- Mensaje global para errores o información -->
+        <div id="globalMessage" class="message-box hidden"></div>
+
+    </div>
+
+    <script type="module">
+        // Importaciones de Firebase (ya definidas en el script de arriba)
+        // No es necesario re-importar aquí si ya están en un script type="module" global.
+
+        // Referencias a los elementos HTML
+        const steps = ['intro', 'observation', 'hypothesis', 'experiment', 'results', 'conclusion', 'end', 'view-results'];
+        let currentStepIndex = 0;
+        let selectedExperiment = '';
+        let currentQuestion = '';
+        let currentHypothesis = '';
+        let currentSimulatedResult = '';
+        let currentConclusion = '';
+
+        const getElement = (id) => document.getElementById(id);
+
+        const showStep = (stepId) => {
+            steps.forEach(step => {
+                getElement(`step-${step}`).classList.add('hidden');
+            });
+            getElement(`step-${stepId}`).classList.remove('hidden');
+            // Scroll to top of the activity container for better UX
+            getElement('startButton').closest('.activity-container').scrollTop = 0;
+        };
+
+        const showMessage = (elementId, message, isError = false) => {
+            const element = getElement(elementId);
+            element.textContent = message;
+            element.classList.remove('hidden', 'error');
+            if (isError) {
+                element.classList.add('error');
+            }
+            element.style.display = 'block'; // Ensure it's visible
+            setTimeout(() => {
+                element.style.display = 'none'; // Hide after 3 seconds
+            }, 3000);
+        };
+
+        // Navegación entre pasos
+        getElement('startButton').addEventListener('click', () => {
+            currentStepIndex = 1;
+            showStep(steps[currentStepIndex]);
+        });
+
+        getElement('nextToHypothesisButton').addEventListener('click', () => {
+            currentQuestion = getElement('questionInput').value.trim();
+            if (currentQuestion.length < 10) {
+                showMessage('questionMessage', 'Por favor, escribe una pregunta más detallada (mínimo 10 caracteres).', true);
+                return;
+            }
+            currentStepIndex = 2;
+            showStep(steps[currentStepIndex]);
+        });
+
+        getElement('nextToExperimentButton').addEventListener('click', () => {
+            currentHypothesis = getElement('hypothesisInput').value.trim();
+            if (currentHypothesis.length < 10) {
+                showMessage('hypothesisMessage', 'Por favor, escribe una hipótesis más detallada (mínimo 10 caracteres).', true);
+                return;
+            }
+            currentStepIndex = 3;
+            showStep(steps[currentStepIndex]);
+        });
+
+        // Manejo de la selección de experimento
+        document.querySelectorAll('.option-button').forEach(button => {
+            button.addEventListener('click', (event) => {
+                selectedExperiment = event.target.dataset.experiment;
+                let resultText = '';
+                let isErrorResult = false;
+
+                // Lógica de resultados simulados basada en el experimento elegido
+                switch (selectedExperiment) {
+                    case 'agua':
+                        if (currentHypothesis.toLowerCase().includes('agua')) {
+                            resultText = '¡Excelente! Después de aumentar el riego, las hojas de tu planta se volvieron verdes y la planta recuperó su vigor. ¡Tu hipótesis fue apoyada!';
+                        } else {
+                            resultText = 'Después de aumentar el riego, las hojas de la planta no mejoraron, e incluso algunas se pusieron más amarillas. Parece que el agua no era el problema principal.';
+                            isErrorResult = true;
+                        }
+                        break;
+                    case 'sol':
+                        if (currentHypothesis.toLowerCase().includes('sol') || currentHypothesis.toLowerCase().includes('luz')) {
+                            resultText = '¡Increíble! Al mover la planta a un lugar con más sol, las hojas amarillas desaparecieron y la planta empezó a crecer con fuerza. ¡Tu hipótesis fue apoyada!';
+                        } else {
+                            resultText = 'Después de mover la planta a un lugar con más sol, no hubo cambios significativos, o incluso las hojas se quemaron un poco. El sol no parece ser la causa.';
+                            isErrorResult = true;
+                        }
+                        break;
+                    case 'nutrientes':
+                        if (currentHypothesis.toLowerCase().includes('nutrientes') || currentHypothesis.toLowerCase().includes('suelo')) {
+                            resultText = '¡Lo lograste! Al añadir nutrientes al suelo, la planta se recuperó rápidamente, sus hojas se pusieron verdes y creció vigorosamente. ¡Tu hipótesis fue apoyada!';
+                        } else {
+                            resultText = 'Después de añadir nutrientes, la planta no mostró mejoría, o incluso empeoró. Los nutrientes no eran el factor clave.';
+                            isErrorResult = true;
+                        }
+                        break;
+                    default:
+                        resultText = 'No se pudo simular el resultado. Por favor, elige una opción.';
+                        isErrorResult = true;
+                }
+
+                currentSimulatedResult = resultText; // Store the simulated result
+                const simulatedResultBox = getElement('simulatedResult');
+                simulatedResultBox.textContent = resultText;
+                simulatedResultBox.classList.remove('error'); // Reset error class
+                if (isErrorResult) {
+                    simulatedResultBox.classList.add('error');
+                }
+                simulatedResultBox.style.display = 'block'; // Show the result box
+
+                currentStepIndex = 4;
+                showStep(steps[currentStepIndex]);
+            });
+        });
+
+        getElement('nextToConclusionButton').addEventListener('click', () => {
+            currentStepIndex = 5;
+            showStep(steps[currentStepIndex]);
+        });
+
+        getElement('finishButton').addEventListener('click', async () => {
+            currentConclusion = getElement('conclusionInput').value.trim();
+            if (currentConclusion.length < 20) {
+                showMessage('conclusionMessage', 'Por favor, escribe una conclusión más completa (mínimo 20 caracteres).', true);
+                return;
+            }
+
+            // Save the result to Firestore
+            await window.saveResult(
+                currentQuestion,
+                currentHypothesis,
+                selectedExperiment,
+                currentSimulatedResult,
+                currentConclusion
+            );
+
+            currentStepIndex = 6;
+            showStep(steps[currentStepIndex]);
+        });
+
+        getElement('restartButton').addEventListener('click', () => {
+            // Reiniciar la actividad
+            getElement('questionInput').value = '';
+            getElement('hypothesisInput').value = '';
+            getElement('conclusionInput').value = '';
+            getElement('simulatedResult').style.display = 'none';
+            selectedExperiment = '';
+            currentQuestion = '';
+            currentHypothesis = '';
+            currentSimulatedResult = '';
+            currentConclusion = '';
+            currentStepIndex = 0;
+            showStep(steps[currentStepIndex]);
+        });
+
+        getElement('viewResultsButton').addEventListener('click', () => {
+            currentStepIndex = 7;
+            showStep(steps[currentStepIndex]);
+            window.fetchResults(); // Fetch results when the view results step is shown
+        });
+
+        getElement('backToMenuButton').addEventListener('click', () => {
+            currentStepIndex = 6; // Go back to the end screen
+            showStep(steps[currentStepIndex]);
+        });
+
+        // The initial Firebase setup is now handled by window.onload in the head script.
+        // This ensures Firebase is initialized before any other script tries to use it.
+    </script>
+</body>
+</html>
